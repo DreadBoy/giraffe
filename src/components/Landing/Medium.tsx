@@ -39,6 +39,7 @@ export const Medium: FunctionComponent<Props> = ({medium}) => {
                                 src={medium.mp4}
                                 loop
                                 controls
+                                playsInline
                             />
                         )}
                     />
