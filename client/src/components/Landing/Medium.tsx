@@ -14,6 +14,9 @@ const useStyles = makeStyles(() =>
                 marginLeft: 8,
                 marginRight: 8,
             },
+            video: {
+                width: '100%',
+            },
         },
     ),
 );
@@ -27,12 +30,24 @@ export const Medium: FunctionComponent<Props> = ({medium}) => {
     return (
         <>
             {medium.animated ?
-                null : (
+                (
+                    <CardMedia
+                        className={classes.margin}
+                        component={() => (
+                            <video
+                                className={classes.video}
+                                src={medium.mp4}
+                                loop
+                                controls
+                            />
+                        )}
+                    />
+                ) : (
                     <CardMedia
                         className={classes.margin}
                         component='img'
                         src={medium.link}
-                        title={medium.title}
+                        alt={medium.title}
                     />
                 )
             }
