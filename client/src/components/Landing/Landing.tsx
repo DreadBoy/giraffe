@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {FunctionComponent, useEffect} from 'react';
-import {Card, CardHeader, CardMedia, CircularProgress, Grid} from '@material-ui/core';
+import {CircularProgress, Grid} from '@material-ui/core';
 import {observer, useObservable} from 'mobx-react-lite';
 import {Fetcher} from '../../store/fetcher';
 import {Main} from '../Layout/Main';
 import axios from 'axios';
 import {ErrorCallout} from '../ErrorCallout';
+import {Card} from './Card';
 
 type LandingResponse = APIResponse<GalleryAlbumResponse[]>;
 
@@ -38,18 +39,9 @@ export const Landing: FunctionComponent = observer(() => {
                         <CircularProgress/>
                     ) : fetcher.data ?
                         fetcher.data.data
-                            .map(item => item.images && item.images.length > 0 ? (
-                                <Grid item xs={12}>
-                                    <Card key={item.id}>
-                                        <CardHeader title={item.title} subheader={item.account_url}/>
-                                        <CardMedia
-                                            component='img'
-                                            src={item.images[0].link}
-                                            title={item.title}
-                                        />
-                                    </Card>
-                                </Grid>
-                            ) : null)
+                            .map(item => (
+                                <Card item={item} key={item.id}/>
+                            ))
                             .filter(Boolean) : null
                 }
             </Grid>
