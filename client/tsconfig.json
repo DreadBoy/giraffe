@@ -1,0 +1,28 @@
+{
+	"compilerOptions": {
+		"target": "es2017",
+		"lib": [
+			"es2017",
+			"dom"
+		],
+		"jsx": "react",
+		"moduleResolution": "node",
+		"module": "esnext",
+		"alwaysStrict": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"outDir": "../dist"
+	},
+	"include": [
+		"./src/**/*"
+	],
+	"typeRoots": [
+		"node_modules/@types",
+		"src/custom_types"
+	]
+}
