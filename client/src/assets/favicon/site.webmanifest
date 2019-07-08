@@ -1,14 +1,19 @@
 {
-    "name": "Klajmber App",
-    "short_name": "Klajmber App",
+    "name": "Giraffe",
+    "short_name": "Giraffe",
     "icons": [
         {
-            "src": "/android-chrome-144x144.png",
-            "sizes": "144x144",
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-256x256.png",
+            "sizes": "256x256",
             "type": "image/png"
         }
     ],
-    "theme_color": "#394B59",
-    "background_color": "#394B59",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
     "display": "standalone"
 }
