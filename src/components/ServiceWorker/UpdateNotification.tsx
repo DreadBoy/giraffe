@@ -28,6 +28,7 @@ export const UpdateNotification: FunctionComponent = () => {
                     <Button
                         size="small"
                         onClick={() => window.location.reload()}
+                        href={'#'}
                     >
                         Restart
                     </Button>

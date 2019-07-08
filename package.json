@@ -7,8 +7,8 @@
     "node": "10.14.2"
   },
   "scripts": {
-    "develop": "webpack-dev-server --config client/webpack/webpack.dev.js  --mode development",
-    "build": "rimraf dist && webpack --config client/webpack/webpack.prod.js --mode production",
+    "develop": "webpack-dev-server --config webpack/webpack.dev.js  --mode development",
+    "build": "rimraf dist && webpack --config webpack/webpack.prod.js --mode production",
     "deploy": "echo \\\"Error: no deployment yet\\\" && exit 1"
   },
   "author": "Dread_Boy",

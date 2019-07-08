@@ -87,14 +87,14 @@ module.exports = {
             skipWaiting: true,
         }),
         new WebpackPwaManifest({
-            name: 'Klajmber App',
-            short_name: 'Klajmber',
-            description: 'Companion Klajmber App',
+            name: 'Giraffe',
+            short_name: 'Giraffe',
+            description: 'Giraffe - Simple Imgur client',
             background_color: '#ffffff',
             theme_color: '#13809b',
             icons: [
                 {
-                    src: resolve(root, 'src/assets/logo.png'),
+                    src: resolve(root, 'src/assets/favicon/android-chrome-256x256.png'),
                     sizes: [64, 192, 512] // multiple sizes
                 },
             ]
