@@ -9,7 +9,7 @@
   "scripts": {
     "develop": "webpack-dev-server --config webpack/webpack.dev.js  --mode development",
     "build": "rimraf dist && webpack --config webpack/webpack.prod.js --mode production",
-    "deploy": "echo \\\"Error: no deployment yet\\\" && exit 1"
+    "deploy": "node deploy.js"
   },
   "author": "Dread_Boy",
   "license": "ISC",

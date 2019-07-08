@@ -70,7 +70,7 @@ module.exports = {
         new HtmlWebpackPlugin({template: './src/index.html.ejs',}),
         forkTs,
         new DefinePlugin({
-            'process.env.PUBLIC_URL': JSON.stringify('')
+            'process.env.PUBLIC_URL': JSON.stringify('https://dreadboy.github.io/giraffe')
         }),
         new GenerateSW({
             clientsClaim: true,

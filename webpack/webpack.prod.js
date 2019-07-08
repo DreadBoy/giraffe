@@ -10,8 +10,8 @@ module.exports = merge(commonConfig, {
   entry: resolve(__dirname, '../src/index.tsx'),
   output: {
     filename: 'js/bundle.[hash].min.js',
-    path: resolve(__dirname, '../../dist'),
-    publicPath: '/',
+    path: resolve(__dirname, '../dist'),
+    publicPath: '/giraffe/',
   },
   devtool: 'source-map',
   plugins: [],
