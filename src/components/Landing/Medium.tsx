@@ -33,16 +33,15 @@ export const Medium: FunctionComponent<Props> = ({medium}) => {
                 (
                     <CardMedia
                         className={classes.margin}
-                        component={() => (
-                            <video
-                                className={classes.video}
-                                src={medium.mp4}
-                                loop
-                                controls
-                                playsInline
-                            />
-                        )}
-                    />
+                    >
+                        <video
+                            className={classes.video}
+                            src={medium.mp4}
+                            loop
+                            controls
+                            playsInline
+                        />
+                    </CardMedia>
                 ) : (
                     <CardMedia
                         className={classes.margin}
