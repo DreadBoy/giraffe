@@ -1,18 +1,21 @@
 import * as React from 'react';
-import {FunctionComponent, useEffect} from 'react';
-import {CircularProgress, Grid} from '@material-ui/core';
+import {FunctionComponent, useEffect, useState} from 'react';
+import {CircularProgress, Grid, IconButton} from '@material-ui/core';
 import {observer, useObservable} from 'mobx-react-lite';
 import {Fetcher} from '../../store/fetcher';
 import {Main} from '../Layout/Main';
 import axios from 'axios';
 import {ErrorCallout} from '../ErrorCallout';
 import {Card} from './Card';
+import {Refresh} from '@material-ui/icons';
 
 type LandingResponse = APIResponse<GalleryAlbumResponse[]>;
 
 export const Landing: FunctionComponent = observer(() => {
 
     const fetcher = useObservable(new Fetcher<LandingResponse>());
+    const newId = () => new Date().getTime();
+    const [id, setId] = useState<number>(newId());
     useEffect(() => {
         fetcher
             .fetch(
@@ -27,10 +30,22 @@ export const Landing: FunctionComponent = observer(() => {
                 Math.random().toString(10),
             )
             .catch(console.error);
-    }, []);
+    }, [id]);
 
     return (
-        <Main heading={'Giraffe'}>
+        <Main
+            heading={'Giraffe'}
+            actions={(
+                <IconButton
+                    edge="start"
+                    color="inherit"
+                    href='#'
+                    onClick={() => setId(newId())}
+                >
+                    <Refresh/>
+                </IconButton>
+            )}
+        >
             <Grid container spacing={1}>
                 {
                     fetcher.error ? (

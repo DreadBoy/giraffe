@@ -12,6 +12,10 @@ const useStyles = makeStyles(() =>
             },
             main: {
                 padding: 8,
+                maxWidth: 768,
+            },
+            grow: {
+                flexGrow: 1,
             },
         },
     ),
@@ -19,15 +23,22 @@ const useStyles = makeStyles(() =>
 
 type Props = {
     heading: string
+    actions?: JSX.Element
 };
 
-export const Main: FunctionComponent<Props> = ({children, heading}) => {
+export const Main: FunctionComponent<Props> = ({children, heading, actions}) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
             <AppBar position={'static'}>
                 <Toolbar>
                     <Typography variant="h6">{heading}</Typography>
+                    {actions && (
+                        <>
+                            <div className={classes.grow}/>
+                            {actions}
+                        </>
+                    )}
                 </Toolbar>
             </AppBar>
             <main className={classes.main}>

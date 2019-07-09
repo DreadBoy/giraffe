@@ -70,7 +70,8 @@ export class Root extends React.Component<{}, State> {
                                         </Button>
                                     </CardActions>
                                 </Card>
-                            ) : (<Landing/>
+                            ) : (
+                                <Landing/>
                             )}
                         </ServiceWorkerProvider>
                     </ThemeProvider>
