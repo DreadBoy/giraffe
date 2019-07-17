@@ -12,5 +12,5 @@ action "On master branch" {
 action "Deploy" {
   needs = "On master branch"
   uses = "actions/npm@master"
-  args = "deploy"
+  args = "run deploy"
 }
