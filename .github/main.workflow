@@ -1,5 +1,5 @@
-workflow "Deploy" {
-  resolves = ["deploy"]
+workflow "Deploy from master" {
+  resolves = ["Deploy"]
   on = "push"
 }
 
