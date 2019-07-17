@@ -8,9 +8,14 @@ action "On master branch" {
   args = "branch master"
 }
 
+action "Install dev dependencies" {
+  needs = "On master branch"
+  uses = "actions/npm@master"
+  args = "install --only=dev"
+}
 
 action "Deploy" {
-  needs = "On master branch"
+  needs = "Install dev dependencies"
   uses = "actions/npm@master"
   args = "run deploy"
 }
