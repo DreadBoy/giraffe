@@ -11,7 +11,7 @@ action "On master branch" {
 action "Install dev dependencies" {
   needs = "On master branch"
   uses = "actions/npm@master"
-  args = "install --only=dev"
+  args = "install"
 }
 
 action "Deploy" {
