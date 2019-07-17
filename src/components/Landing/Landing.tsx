@@ -8,6 +8,7 @@ import axios from 'axios';
 import {ErrorCallout} from '../ErrorCallout';
 import {Card} from './Card';
 import {Refresh} from '@material-ui/icons';
+import {headers} from '../../services/auth';
 
 type LandingResponse = APIResponse<GalleryAlbumResponse[]>;
 
@@ -21,11 +22,7 @@ export const Landing: FunctionComponent = observer(() => {
             .fetch(
                 axios.get<LandingResponse>(
                     'https://api.imgur.com/3/gallery/hot/time',
-                    {
-                        headers: {
-                            Authorization: 'Client-ID 52680c0415d6925',
-                        },
-                    },
+                    {headers},
                 ),
                 Math.random().toString(10),
             )
