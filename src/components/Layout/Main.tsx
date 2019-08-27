@@ -13,6 +13,7 @@ const useStyles = makeStyles(() =>
             main: {
                 padding: 8,
                 maxWidth: 768,
+                margin: `0 auto`,
             },
             grow: {
                 flexGrow: 1,
