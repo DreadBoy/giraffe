@@ -34,11 +34,12 @@ const useStyles = makeStyles({
         width: 60,
         height: 60,
     },
-    progressHover: {
+    progress: {
+        cursor: 'pointer',
         '&:hover': {
-            height: 20,
-            marginTop: 20 - 4,
-        },
+            height: 15,
+            marginTop: -11,
+        }
     },
 });
 
@@ -126,6 +127,11 @@ export const Video: FunctionComponent<Props> = ({className, src}) => {
         },
     });
 
+    const setSeek = (seek: number) => {
+        if (!video.current)
+            return;
+        video.current.currentTime = video.current.duration * seek;
+    };
 
     const classes = useStyles();
     return (
@@ -143,7 +149,7 @@ export const Video: FunctionComponent<Props> = ({className, src}) => {
                 ref={video}
                 onClick={togglePlaying}
             />
-            <ProgressBar className={classes.progressHover} buffer={buffer} progress={progress}/>
+            <ProgressBar className={classes.progress} buffer={buffer} progress={progress} onClick={setSeek}/>
             <IconButton className={classes.muted} onClick={toggleSound}>
                 {!hasSound ? null : sound ? <VolumeUp/> : <VolumeOff/>}
             </IconButton>

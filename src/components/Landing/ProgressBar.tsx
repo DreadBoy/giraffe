@@ -1,10 +1,11 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, MouseEventHandler, useRef} from 'react';
 import {LinearProgress, withStyles} from '@material-ui/core';
 
 type Props = {
     className?: string,
     progress: number,
     buffer: number,
+    onClick?: (progress: number) => void,
 }
 
 const Progress = withStyles({
@@ -16,13 +17,22 @@ const Progress = withStyles({
     },
 })(LinearProgress);
 
-export const ProgressBar: FunctionComponent<Props> = ({className, progress, buffer}) => {
+export const ProgressBar: FunctionComponent<Props> = ({className, progress, buffer, onClick}) => {
+    const root = useRef<HTMLDivElement>();
+    const click: MouseEventHandler<HTMLElement> = e => {
+        if (!onClick || !root.current)
+            return;
+        onClick((e.clientX - root.current.getBoundingClientRect().left) /
+            root.current.getBoundingClientRect().width);
+    };
     return (
         <Progress
             className={className}
             variant={'buffer'}
             value={progress}
             valueBuffer={buffer}
+            onClick={click}
+            ref={root}
         />
     );
 };
