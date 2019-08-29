@@ -3,7 +3,7 @@ import {AxiosPromise, AxiosResponse} from 'axios';
 
 export type Silent = 'silent' | undefined;
 
-export class Fetcher<T> {
+export class Fetcher<T extends APIResponse<U>, U extends object = object> {
     @observable private _loading: boolean = false;
     @observable private _silent: boolean = false;
     @observable public error: Error | null = null;
@@ -33,7 +33,7 @@ export class Fetcher<T> {
             if (e.response && e.response.data)
                 error = e.response.data;
         }
-        if (response !== null)
+        if (response !== null && response.data.success)
             this.data = response.data;
         if (uuid === this.uuid) {
             this.error = error;
