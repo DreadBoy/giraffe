@@ -1,0 +1,20 @@
+on: push
+name: Deploy from master
+jobs:
+  onMasterBranch:
+    name: On master branch
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: On master branch
+      uses: actions/bin/filter@master
+      with:
+        args: branch master
+    - name: Install dev dependencies
+      uses: actions/npm@master
+      with:
+        args: install
+    - name: Deploy
+      uses: actions/npm@master
+      with:
+        args: run deploy
