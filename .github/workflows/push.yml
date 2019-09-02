@@ -1,20 +1,19 @@
-on: push
 name: Deploy from master
+on:
+  push:
+    branches:
+      - master
 jobs:
-  onMasterBranch:
-    name: On master branch
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: On master branch
-      uses: actions/bin/filter@master
-      with:
-        args: branch master
-    - name: Install dev dependencies
-      uses: actions/npm@master
-      with:
-        args: install
-    - name: Deploy
-      uses: actions/npm@master
-      with:
-        args: run deploy
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Build and Deploy
+      uses: JamesIves/github-pages-deploy-action@master
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: dist
+        BUILD_SCRIPT: npm install && npm run build
