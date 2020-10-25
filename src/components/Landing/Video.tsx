@@ -39,7 +39,7 @@ const useStyles = makeStyles({
         '&:hover': {
             height: 15,
             marginTop: -11,
-        }
+        },
     },
 });
 
@@ -84,7 +84,7 @@ export const Video: FunctionComponent<Props> = ({className, src}) => {
             setProgress(video.current.currentTime / video.current.duration * 100);
         };
         const onProgress = () => {
-            if (!video.current)
+            if (!video.current || video.current.buffered.length <= 0)
                 return;
             setBuffer(video.current.buffered.end(0) / video.current.duration * 100);
         };
@@ -105,6 +105,7 @@ export const Video: FunctionComponent<Props> = ({className, src}) => {
         video.current.mozHasAudio ||
         // @ts-ignore
         !!video.current.webkitAudioDecodedByteCount ||
+        // @ts-ignore
         !!video.current.audioTracks && video.current.audioTracks.length;
 
     const swipeStart = useRef<number | null>(null);

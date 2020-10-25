@@ -1,7 +1,0 @@
-{
-	"env": {
-		"NODE_ENV": "development",
-		"CLEARDB_DATABASE_URL": "",
-		"PORT": ""
-	}
-}

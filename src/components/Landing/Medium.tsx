@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {FunctionComponent} from 'react';
 import {CardMedia, makeStyles, Typography} from '@material-ui/core';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import {Video} from './Video';
 
 const useStyles = makeStyles({
