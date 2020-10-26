@@ -1,11 +1,12 @@
 import * as React from 'react';
-import {FunctionComponent, useCallback, useEffect, useRef} from 'react';
+import {FunctionComponent, useCallback, useRef} from 'react';
 import {Card as MUICard, CardHeader, Grid} from '@material-ui/core';
 import {Medium} from './Medium';
 import {observer, useObservable} from 'mobx-react-lite';
 import {Fetcher} from '../../store/fetcher';
 import axios from 'axios';
 import {headers} from '../../services/auth';
+import {useObserver} from '../../services/use-observer';
 
 type AlbumResponse = APIResponse<GalleryAlbumResponse>;
 
@@ -14,7 +15,7 @@ type Props = {
 }
 
 export const Card: FunctionComponent<Props> = observer(({item}) => {
-    const el = useRef<HTMLElement>();
+    const el = useRef<HTMLElement>(null);
     const fetcher = useObservable(new Fetcher<AlbumResponse>());
     const fetchAlbum = useCallback(() => {
         if (!item.is_album || item.images.length >= item.images_count) {
@@ -34,30 +35,7 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
             .catch(console.error);
     }, [fetcher, item.id, item.images, item.images_count, item.is_album]);
 
-    const onVisible = useCallback((
-        entries: IntersectionObserverEntry[],
-    ) => {
-        const isVisible = entries.length >= 0 && entries[0].isIntersecting;
-
-        if (isVisible) {
-            fetchAlbum();
-        }
-    }, [fetchAlbum]);
-
-    useEffect(() => {
-        if (!el.current)
-            return;
-
-        const observer = new IntersectionObserver(onVisible, {
-            root: null,
-            rootMargin: '500px',
-            threshold: 0,
-        });
-
-        observer.observe(el.current);
-
-        return () => observer.disconnect()
-    }, [onVisible]);
+    useObserver(el, fetchAlbum);
 
     let images = item.is_album && fetcher.data ?
         fetcher.data.data.images :
