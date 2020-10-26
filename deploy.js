@@ -1,27 +1,32 @@
 const {resolve} = require('path');
-const {existsSync, mkdirSync} = require('fs');
+const {emptyDirSync, copySync, removeSync} = require('fs-extra');
 const {execSync} = require('child_process');
-const rimraf = require('rimraf');
 
 function exec(command) {
     execSync(command, {stdio: 'inherit'});
 }
 
 function deploy() {
-    const dist = resolve('./build');
+    const deploy = resolve('./deploy');
+    const build = resolve('./build');
     const here = process.cwd();
-    if (existsSync(dist))
-        rimraf.sync(dist);
-    mkdirSync(dist);
-    exec('git clone git@github.com:DreadBoy/giraffe.git build');
-    process.chdir(dist);
+
+    emptyDirSync(deploy);
+    exec(`git clone git@github.com:DreadBoy/giraffe.git ${deploy}`);
+    process.chdir(deploy);
     exec('git checkout gh-pages');
+    removeSync(`${deploy}/!(.git)`)
     process.chdir(here);
+
     exec('yarn run build');
-    process.chdir(dist);
+
+    copySync(build, deploy)
+    process.chdir(deploy);
     exec(`git add . && git commit --allow-empty -m "Deployed at ${new Date().toISOString()} " && git push`);
     process.chdir(here);
-    rimraf.sync(dist);
+
+    removeSync(deploy);
+    removeSync(build);
 }
 
 deploy();
