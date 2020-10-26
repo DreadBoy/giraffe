@@ -1,6 +1,7 @@
 {
     "name": "Giraffe",
     "short_name": "Giraffe",
+    "description": "Simple Imgur frontpage browser that can be installed as PWA",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
