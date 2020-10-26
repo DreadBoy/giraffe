@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FunctionComponent, useEffect} from 'react';
+import {FunctionComponent, useCallback, useEffect, useRef} from 'react';
 import {Card as MUICard, CardHeader, Grid} from '@material-ui/core';
 import {Medium} from './Medium';
 import {observer, useObservable} from 'mobx-react-lite';
@@ -14,28 +14,63 @@ type Props = {
 }
 
 export const Card: FunctionComponent<Props> = observer(({item}) => {
+    const el = useRef<HTMLElement>();
     const fetcher = useObservable(new Fetcher<AlbumResponse>());
+    const fetchAlbum = useCallback(() => {
+        if (!item.is_album || item.images.length >= item.images_count) {
+            return;
+        }
+        if (fetcher.data || fetcher.loading) {
+            return;
+        }
+        fetcher
+            .fetch(
+                axios.get<AlbumResponse>(
+                    `https://api.imgur.com/3/album/${item.id}`,
+                    {headers},
+                ),
+                item.id,
+            )
+            .catch(console.error);
+    }, [fetcher, item.id, item.images, item.images_count, item.is_album]);
+
+    const onVisible = useCallback((
+        entries: IntersectionObserverEntry[],
+    ) => {
+        const isVisible = entries.length >= 0 && entries[0].isIntersecting;
+
+        if (isVisible) {
+            fetchAlbum();
+        }
+    }, [fetchAlbum]);
+
     useEffect(() => {
-        if (item.is_album)
-            fetcher
-                .fetch(
-                    axios.get<AlbumResponse>(
-                        `https://api.imgur.com/3/album/${item.id}`,
-                        {headers},
-                    ),
-                    item.id,
-                )
-                .catch(console.error);
-    }, [fetcher, item.id, item.is_album]);
+        if (!el.current)
+            return;
+
+        const observer = new IntersectionObserver(onVisible, {
+            root: null,
+            rootMargin: '500px',
+            threshold: 0,
+        });
+
+        observer.observe(el.current);
+
+        return () => observer.disconnect()
+    }, [onVisible]);
+
     let images = item.is_album && fetcher.data ?
         fetcher.data.data.images :
         item.images;
     if (!images)
         images = [item as any];
     return images.length > 0 ? (
-        <Grid item xs={12}>
+        <Grid item xs={12} innerRef={el}>
             <MUICard>
-                <CardHeader title={item.title} subheader={item.account_url}/>
+                <CardHeader
+                    title={item.title}
+                    subheader={item.description}
+                />
                 {images.map(image => (
                     <Medium medium={image} key={image.id}/>
                 ))}
