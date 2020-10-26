@@ -1,6 +1,6 @@
 {
-  "name": "giraffe-new",
-  "description": "Simple Imgur client",
+  "name": "giraffe",
+  "description": "Simple Imgur frontpage browser that can be installed as PWA",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
