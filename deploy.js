@@ -8,16 +8,16 @@ function exec(command) {
 }
 
 function deploy() {
-    const dist = resolve('./dist');
+    const dist = resolve('./build');
     const here = process.cwd();
     if (existsSync(dist))
         rimraf.sync(dist);
     mkdirSync(dist);
-    exec('git clone git@github.com:DreadBoy/giraffe.git dist');
+    exec('git clone git@github.com:DreadBoy/giraffe.git build');
     process.chdir(dist);
     exec('git checkout gh-pages');
     process.chdir(here);
-    exec('webpack --config webpack/webpack.prod.js --mode production');
+    exec('yarn run build');
     process.chdir(dist);
     exec(`git add . && git commit --allow-empty -m "Deployed at ${new Date().toISOString()} " && git push`);
     process.chdir(here);

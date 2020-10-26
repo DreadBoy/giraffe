@@ -64,15 +64,16 @@ export const Video: FunctionComponent<Props> = ({className, src}) => {
             return;
         const onPlay = () => setPlaying(true);
         const onPause = () => setPlaying(false);
-        video.current.addEventListener('play', onPlay);
-        video.current.addEventListener('pause', onPause);
+        const v = video.current;
+        v.addEventListener('play', onPlay);
+        v.addEventListener('pause', onPause);
         return () => {
-            if (!video.current)
+            if (!v)
                 return;
-            video.current.removeEventListener('play', onPlay);
-            video.current.removeEventListener('pause', onPause);
+            v.removeEventListener('play', onPlay);
+            v.removeEventListener('pause', onPause);
         }
-    }, [video.current]);
+    }, []);
 
     const [progress, setProgress] = useState(0);
     const [buffer, setBuffer] = useState(0);
@@ -90,15 +91,16 @@ export const Video: FunctionComponent<Props> = ({className, src}) => {
         };
         if (!video.current)
             return;
-        video.current.addEventListener('timeupdate', onUpdate);
-        video.current.addEventListener('progress', onProgress);
+        const v = video.current;
+        v.addEventListener('timeupdate', onUpdate);
+        v.addEventListener('progress', onProgress);
         return () => {
-            if (!video.current)
+            if (!v)
                 return;
-            video.current.removeEventListener('timeupdate', onUpdate);
-            video.current.removeEventListener('progress', onProgress);
+            v.removeEventListener('timeupdate', onUpdate);
+            v.removeEventListener('progress', onProgress);
         }
-    }, [video.current]);
+    }, []);
 
     const hasSound = !video.current ? false :
         // @ts-ignore
@@ -106,7 +108,7 @@ export const Video: FunctionComponent<Props> = ({className, src}) => {
         // @ts-ignore
         !!video.current.webkitAudioDecodedByteCount ||
         // @ts-ignore
-        !!video.current.audioTracks && video.current.audioTracks.length;
+        (!!video.current.audioTracks && video.current.audioTracks.length);
 
     const swipeStart = useRef<number | null>(null);
     const swipeable = useSwipeable({

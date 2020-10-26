@@ -26,7 +26,7 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
                     item.id,
                 )
                 .catch(console.error);
-    }, [item.is_album]);
+    }, [fetcher, item.id, item.is_album]);
     let images = item.is_album && fetcher.data ?
         fetcher.data.data.images :
         item.images;

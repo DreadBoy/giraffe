@@ -1,19 +1,20 @@
 import * as React from 'react';
 import {FunctionComponent} from 'react';
-import img from '../../assets/zwartevilt.png';
 import {AppBar, Toolbar, Typography} from '@material-ui/core';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() =>
     createStyles({
             root: {
-                minHeight: '100%',
-                background: `url(${img}) repeat`,
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
             },
             main: {
                 padding: 8,
                 maxWidth: 768,
                 margin: `0 auto`,
+                flexGrow: 1,
             },
             grow: {
                 flexGrow: 1,
@@ -48,5 +49,3 @@ export const Main: FunctionComponent<Props> = ({children, heading, actions}) => 
         </div>
     );
 };
-Main.displayName = 'Main';
-

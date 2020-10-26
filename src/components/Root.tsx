@@ -1,16 +1,23 @@
 import * as React from 'react';
 import {ErrorInfo} from 'react';
-
-import 'normalize.css/normalize.css';
-
-import './Root.sass';
 import {BrowserRouter} from 'react-router-dom';
 import {Favicon} from './Head/Favicon';
 import {Provider as ServiceWorkerProvider} from './ServiceWorker/Context';
 import {UpdateNotification} from './ServiceWorker/UpdateNotification';
 import {Landing} from './Landing/Landing';
-import {ThemeProvider} from '@material-ui/styles';
-import {Button, Card, CardActions, CardContent, CardHeader, createMuiTheme, Theme, Typography} from '@material-ui/core';
+import {ThemeProvider} from '@material-ui/core/styles';
+import teal from '@material-ui/core/colors/teal'
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader,
+    createMuiTheme,
+    CssBaseline,
+    Theme,
+    Typography,
+} from '@material-ui/core';
 
 interface State {
     error: Error | null,
@@ -24,7 +31,8 @@ export class Root extends React.Component<{}, State> {
         super(props);
         this.theme = createMuiTheme({
             palette: {
-                type: 'dark', // Switching the dark mode on is a single property value change.
+                type: 'dark',
+                primary: teal,
             },
         });
         this.state = {
@@ -54,6 +62,7 @@ export class Root extends React.Component<{}, State> {
                 <Favicon/>
                 <BrowserRouter>
                     <ThemeProvider theme={this.theme}>
+                        <CssBaseline />
                         <ServiceWorkerProvider>
                             <UpdateNotification/>
                             {this.state.error ? (

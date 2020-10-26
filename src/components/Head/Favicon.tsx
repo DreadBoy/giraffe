@@ -17,4 +17,3 @@ export const Favicon: React.FunctionComponent = () => (
         <meta name="theme-color" content="#394B59"/>
     </Helmet>
 );
-Favicon.displayName = 'Favicon';
