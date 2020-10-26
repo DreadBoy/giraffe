@@ -1,6 +1,7 @@
 const {resolve} = require('path');
 const {emptyDirSync, copySync, removeSync} = require('fs-extra');
 const {execSync} = require('child_process');
+const rimraf = require('rimraf');
 
 function exec(command) {
     execSync(command, {stdio: 'inherit'});
@@ -15,9 +16,9 @@ function deploy() {
     exec(`git clone git@github.com:DreadBoy/giraffe.git ${deploy}`);
     process.chdir(deploy);
     exec('git checkout gh-pages');
-    removeSync(`${deploy}/!(.git)`)
-    process.chdir(here);
+    rimraf.sync(`${deploy}/*`)
 
+    process.chdir(here);
     exec('yarn run build');
 
     copySync(build, deploy)
