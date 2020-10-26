@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ErrorInfo} from 'react';
 import {Favicon} from './Head/Favicon';
-import {Provider as ServiceWorkerProvider} from './ServiceWorker/Context';
+import {ServiceWorkerProvider} from './ServiceWorker/Context';
 import {UpdateNotification} from './ServiceWorker/UpdateNotification';
 import {Landing} from './Landing/Landing';
 import {ThemeProvider} from '@material-ui/core/styles';
