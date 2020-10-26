@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.js": "/giraffe/static/js/main.e3bdf97b.chunk.js",
-    "main.js.map": "/giraffe/static/js/main.e3bdf97b.chunk.js.map",
+    "main.js": "/giraffe/static/js/main.bbbabfbd.chunk.js",
+    "main.js.map": "/giraffe/static/js/main.bbbabfbd.chunk.js.map",
     "runtime-main.js": "/giraffe/static/js/runtime-main.cfc5899a.js",
     "runtime-main.js.map": "/giraffe/static/js/runtime-main.cfc5899a.js.map",
-    "static/js/2.9246cda4.chunk.js": "/giraffe/static/js/2.9246cda4.chunk.js",
-    "static/js/2.9246cda4.chunk.js.map": "/giraffe/static/js/2.9246cda4.chunk.js.map",
+    "static/js/2.9aa9d579.chunk.js": "/giraffe/static/js/2.9aa9d579.chunk.js",
+    "static/js/2.9aa9d579.chunk.js.map": "/giraffe/static/js/2.9aa9d579.chunk.js.map",
     "static/js/3.b6ad39cd.chunk.js": "/giraffe/static/js/3.b6ad39cd.chunk.js",
     "static/js/3.b6ad39cd.chunk.js.map": "/giraffe/static/js/3.b6ad39cd.chunk.js.map",
     "index.html": "/giraffe/index.html",
     "service-worker.js": "/giraffe/service-worker.js",
     "service-worker.js.map": "/giraffe/service-worker.js.map",
-    "static/js/2.9246cda4.chunk.js.LICENSE.txt": "/giraffe/static/js/2.9246cda4.chunk.js.LICENSE.txt",
+    "static/js/2.9aa9d579.chunk.js.LICENSE.txt": "/giraffe/static/js/2.9aa9d579.chunk.js.LICENSE.txt",
     "static/media/safari-pinned-tab.c1987e13.svg": "/giraffe/static/media/safari-pinned-tab.c1987e13.svg",
     "static/media/site.487ba06a.webmanifest": "/giraffe/static/media/site.487ba06a.webmanifest"
   },
   "entrypoints": [
     "static/js/runtime-main.cfc5899a.js",
-    "static/js/2.9246cda4.chunk.js",
-    "static/js/main.e3bdf97b.chunk.js"
+    "static/js/2.9aa9d579.chunk.js",
+    "static/js/main.bbbabfbd.chunk.js"
   ]
 }
