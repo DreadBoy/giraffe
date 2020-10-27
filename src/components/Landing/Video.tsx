@@ -1,7 +1,6 @@
 import {default as React, FunctionComponent, useEffect, useRef, useState} from 'react';
 import {IconButton, makeStyles} from '@material-ui/core';
 import {PlayArrow, VolumeOff, VolumeUp} from '@material-ui/icons';
-import classNames from 'classnames';
 import {ProgressBar} from './ProgressBar';
 import {useSwipeable} from 'react-swipeable'
 
@@ -11,9 +10,6 @@ type Props = {
 }
 
 const useStyles = makeStyles({
-    root: {
-        position: 'relative',
-    },
     video: {
         width: '100%',
         display: 'block',
@@ -35,6 +31,9 @@ const useStyles = makeStyles({
         height: 60,
     },
     progress: {
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
         cursor: 'pointer',
         '&:hover': {
             height: 15,
@@ -139,7 +138,7 @@ export const Video: FunctionComponent<Props> = ({className, src}) => {
     const classes = useStyles();
     return (
         <div
-            className={classNames(classes.root, className)}
+            className={className}
             {...swipeable}
         >
             <video
