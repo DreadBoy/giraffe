@@ -19,6 +19,9 @@ export class Root extends React.Component<{}, State> {
 
     constructor(props: {}) {
         super(props);
+        const breakWord = {
+            wordBreak: 'break-word',
+        } as const;
         this.theme = createMuiTheme({
             palette: {
                 type: 'dark',
@@ -26,17 +29,15 @@ export class Root extends React.Component<{}, State> {
             },
             overrides: {
                 MuiCardHeader: {
-                    title: {
-                        wordBreak: 'break-word',
-                    },
-                    subheader: {
-                        wordBreak: 'break-word',
-                    },
+                    title: breakWord,
+                    subheader: breakWord,
                 },
                 MuiTypography: {
-                    body1: {
-                        wordBreak: 'break-word',
-                    },
+                    body1: breakWord,
+                },
+                MuiListItemText: {
+                    primary: breakWord,
+                    secondary: breakWord,
                 },
             },
         });

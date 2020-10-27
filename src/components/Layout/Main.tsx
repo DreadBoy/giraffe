@@ -1,27 +1,26 @@
 import * as React from 'react';
-import {FunctionComponent} from 'react';
+import {FC} from 'react';
 import {AppBar, Toolbar, Typography} from '@material-ui/core';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 import {HideOnScroll} from './HideOnScroll';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
     createStyles({
-            root: {
-                minHeight: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-            },
-            main: {
-                padding: 8,
-                maxWidth: 768,
-                margin: `0 auto`,
-                flexGrow: 1,
-            },
-            grow: {
-                flexGrow: 1,
-            },
+        root: {
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
         },
-    ),
+        main: {
+            padding: theme.spacing(1),
+            maxWidth: 768,
+            margin: `0 auto`,
+            flexGrow: 1,
+        },
+        grow: {
+            flexGrow: 1,
+        },
+    }),
 );
 
 type Props = {
@@ -29,7 +28,7 @@ type Props = {
     actions?: JSX.Element
 };
 
-export const Main: FunctionComponent<Props> = ({children, heading, actions}) => {
+export const Main: FC<Props> = ({children, heading, actions}) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
