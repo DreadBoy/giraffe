@@ -7,6 +7,7 @@ import {Fetcher} from '../../store/fetcher';
 import axios from 'axios';
 import {headers} from '../../services/auth';
 import {useObserver} from '../../services/use-observer';
+import {CommentsLoader} from './CommentsLoader';
 
 type AlbumResponse = APIResponse<GalleryAlbumResponse>;
 
@@ -52,6 +53,7 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
                 {images.map(image => (
                     <Medium medium={image} key={image.id}/>
                 ))}
+                <CommentsLoader item={item}/>
             </MUICard>
         </Grid>
     ) : null;
