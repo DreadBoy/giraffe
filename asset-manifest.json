@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/giraffe/static/js/main.9d72cfea.chunk.js",
-    "main.js.map": "/giraffe/static/js/main.9d72cfea.chunk.js.map",
+    "main.js": "/giraffe/static/js/main.bb9a41fb.chunk.js",
+    "main.js.map": "/giraffe/static/js/main.bb9a41fb.chunk.js.map",
     "runtime-main.js": "/giraffe/static/js/runtime-main.dfe3552c.js",
     "runtime-main.js.map": "/giraffe/static/js/runtime-main.dfe3552c.js.map",
     "static/js/2.4f6c8840.chunk.js": "/giraffe/static/js/2.4f6c8840.chunk.js",
@@ -18,6 +18,6 @@
   "entrypoints": [
     "static/js/runtime-main.dfe3552c.js",
     "static/js/2.4f6c8840.chunk.js",
-    "static/js/main.9d72cfea.chunk.js"
+    "static/js/main.bb9a41fb.chunk.js"
   ]
 }
