@@ -24,6 +24,21 @@ export class Root extends React.Component<{}, State> {
                 type: 'dark',
                 primary: teal,
             },
+            overrides: {
+                MuiCardHeader: {
+                    title: {
+                        wordBreak: 'break-word',
+                    },
+                    subheader: {
+                        wordBreak: 'break-word',
+                    },
+                },
+                MuiTypography: {
+                    body1: {
+                        wordBreak: 'break-word',
+                    },
+                },
+            },
         });
         this.state = {};
     }

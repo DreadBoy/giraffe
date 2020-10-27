@@ -62,8 +62,7 @@ export const Medium: FunctionComponent<Props> = ({medium}) => {
             {medium.description && (
                 <Typography
                     className={classNames(classes.margin, classes.description)}
-                    color="textSecondary"
-                    component="p"
+                    variant={'body1'}
                 >
                     {medium.description}
                 </Typography>
