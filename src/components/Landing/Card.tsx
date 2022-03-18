@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {FunctionComponent, useCallback, useRef} from 'react';
-import {Card as MUICard, CardHeader, Grid} from '@material-ui/core';
+import {Card as MUICard, CardHeader, Grid, MenuItem} from '@material-ui/core';
 import {Medium} from './Medium';
 import {observer, useObservable} from 'mobx-react-lite';
 import {Fetcher} from '../../store/fetcher';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import {headers} from '../../services/auth';
 import {useObserver} from '../../services/use-observer';
 import {CommentsLoader} from './CommentsLoader';
+import {ActionMenu} from './ActionMenu';
 
 type AlbumResponse = APIResponse<GalleryAlbumResponse>;
 
@@ -38,6 +39,15 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
 
     useObserver(el, fetchAlbum);
 
+    const share = useCallback(() => {
+        navigator
+            .share({
+                url: item.link,
+                text: item.title,
+            })
+            .catch(console.error);
+    }, [item.link, item.title]);
+
     let images = item.is_album && fetcher.data ?
         fetcher.data.data.images :
         item.images;
@@ -49,7 +59,14 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
                 <CardHeader
                     title={item.title}
                     subheader={item.description}
+                    action={
+                        <ActionMenu>
+                            <MenuItem component={'a'} href={item.link} target={'_blank'}>View on Imgur</MenuItem>
+                            {navigator.share && <MenuItem onClick={share}>Share</MenuItem>}
+                        </ActionMenu>
+                    }
                 />
+
                 {images.map(image => (
                     <Medium medium={image} key={image.id}/>
                 ))}
