@@ -27,8 +27,10 @@ export const ActionMenu: FunctionComponent = ({children}) => {
                 open={open}
                 ref={menuRef}
                 anchorEl={anchorRef.current}
+                getContentAnchorEl={null}
                 onClose={close}
-                anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                transformOrigin={{vertical: 'top', horizontal: 'right'}}
                 onClick={(e) => {
                     if(menuRef.current?.contains(e.target as Node))
                         close();
