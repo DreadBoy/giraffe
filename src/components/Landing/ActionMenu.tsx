@@ -5,6 +5,7 @@ import {MoreVert} from '@material-ui/icons';
 export const ActionMenu: FunctionComponent = ({children}) => {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLButtonElement>(null);
+    const menuRef = React.useRef<HTMLElement>(null);
 
     const toggle = useCallback(() => {
         setOpen(!open);
@@ -24,10 +25,15 @@ export const ActionMenu: FunctionComponent = ({children}) => {
             </IconButton>
             <Menu
                 open={open}
+                ref={menuRef}
                 anchorEl={anchorRef.current}
                 onClose={close}
                 anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                onClick={(e) => {
+                    if(menuRef.current?.contains(e.target as Node))
+                        close();
 
+                }}
             >
                 {children}
             </Menu>
