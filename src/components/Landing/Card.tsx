@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FunctionComponent, useCallback, useRef} from 'react';
+import {FunctionComponent, useCallback, useRef, useMemo} from 'react';
 import {Card as MUICard, CardHeader, Grid, MenuItem} from '@material-ui/core';
 import {Medium} from './Medium';
 import {observer, useObservable} from 'mobx-react-lite';
@@ -53,6 +53,44 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
         item.images;
     if (!images)
         images = [item as any];
+
+    const exportImage = useCallback(async () => {
+        const stillImages = images.filter((image) => !image.animated);
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.max(...stillImages.map((image) => image.width));
+        canvas.height = stillImages.reduce((acc, curr) => acc + curr.height, 0);
+        const ctx = canvas.getContext('2d');
+
+        await Promise.all(
+            stillImages
+                .reduce((acc, curr) => {
+                    if(acc.length == 0) {
+                        return [{y: 0, image: curr}];
+                    }
+                    return [...acc, {y: acc[acc.length - 1].y + acc[acc.length - 1].image.height, image: curr}];
+                }, [] as {y: number, image: any}[])
+                .map(async ({y, image}) => {
+                    const img = new Image;
+                    img.setAttribute('crossorigin', 'anonymous');
+                    const promise = new Promise(resolve => img.onload = resolve);
+                    img.src = image.link;
+                    await promise;
+                    console.log()
+                    if(ctx)
+                        ctx.drawImage(img,0,y);
+                })
+        )
+
+        const a = document.createElement('a');
+        const blob = await new Promise(resolve => canvas.toBlob(resolve))
+        a.href = window.URL.createObjectURL(blob);
+        a.download = item.title;
+        a.click();
+        
+
+    }, [item.title, images]);
+    const canExportImage = useMemo(() => images.filter((image) => !image.animated).length > 1, [images]);
+
     return images.length > 0 ? (
         <Grid item xs={12} innerRef={el}>
             <MUICard>
@@ -62,7 +100,8 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
                     action={
                         <ActionMenu>
                             <MenuItem component={'a'} href={item.link} target={'_blank'}>View on Imgur</MenuItem>
-                            {navigator.share && <MenuItem onClick={share}>Share</MenuItem>}
+                            {"share" in navigator && <MenuItem onClick={share}>Share</MenuItem>}
+                            {canExportImage && <MenuItem onClick={exportImage}>Export as single image</MenuItem>}
                         </ActionMenu>
                     }
                 />

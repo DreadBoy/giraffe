@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FunctionComponent, useEffect, useState} from 'react';
+import {FunctionComponent, useCallback, useEffect, useState} from 'react';
 import {Box, CircularProgress, Grid, IconButton} from '@material-ui/core';
 import {observer, useObservable} from 'mobx-react-lite';
 import {Fetcher} from '../../store/fetcher';
@@ -15,8 +15,9 @@ type LandingResponse = APIResponse<GalleryAlbumResponse[]>;
 export const Landing: FunctionComponent = observer(() => {
 
     const fetcher = useObservable(new Fetcher<LandingResponse>());
-    const newId = () => new Date().getTime();
-    const [id, setId] = useState<number>(newId());
+    const newId = useCallback(() => new Date().getTime().toString(), []);
+    const [id, setId] = useState<string>(newId());
+    const refresh = useCallback(() => setId(newId()), [newId]);
     useEffect(() => {
         fetcher
             .fetch(
@@ -24,7 +25,7 @@ export const Landing: FunctionComponent = observer(() => {
                     'https://api.imgur.com/3/gallery/hot/time',
                     {headers},
                 ),
-                Math.random().toString(10),
+                id,
             )
             .catch(console.error);
     }, [fetcher, id]);
@@ -33,12 +34,7 @@ export const Landing: FunctionComponent = observer(() => {
         <Main
             heading={'Giraffe'}
             actions={(
-                <IconButton
-                    edge="start"
-                    color="inherit"
-                    href='#'
-                    onClick={() => setId(newId())}
-                >
+                <IconButton onClick={refresh}>
                     <Refresh/>
                 </IconButton>
             )}
