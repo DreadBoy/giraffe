@@ -1,15 +1,13 @@
 {
   "files": {
-    "main.js": "/giraffe/static/js/main.46bbd92f.js",
-    "static/js/422.268ea781.chunk.js": "/giraffe/static/js/422.268ea781.chunk.js",
+    "main.js": "/giraffe/static/js/main.e3b48093.js",
     "service-worker.js": "/giraffe/service-worker.js",
     "static/media/safari-pinned-tab.svg": "/giraffe/static/media/safari-pinned-tab.c1987e13a6a5f9328e1392355c2d8de1.svg",
     "static/media/site.webmanifest": "/giraffe/static/media/site.487ba06a06a74f792335.webmanifest",
     "index.html": "/giraffe/index.html",
-    "main.46bbd92f.js.map": "/giraffe/static/js/main.46bbd92f.js.map",
-    "422.268ea781.chunk.js.map": "/giraffe/static/js/422.268ea781.chunk.js.map"
+    "main.e3b48093.js.map": "/giraffe/static/js/main.e3b48093.js.map"
   },
   "entrypoints": [
-    "static/js/main.46bbd92f.js"
+    "static/js/main.e3b48093.js"
   ]
 }
