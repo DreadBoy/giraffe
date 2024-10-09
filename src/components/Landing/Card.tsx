@@ -64,13 +64,13 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
         await Promise.all(
             stillImages
                 .reduce((acc, curr) => {
-                    if(acc.length == 0) {
+                    if(acc.length === 0) {
                         return [{y: 0, image: curr}];
                     }
                     return [...acc, {y: acc[acc.length - 1].y + acc[acc.length - 1].image.height, image: curr}];
                 }, [] as {y: number, image: any}[])
                 .map(async ({y, image}) => {
-                    const img = new Image;
+                    const img = new Image();
                     img.setAttribute('crossorigin', 'anonymous');
                     const promise = new Promise(resolve => img.onload = resolve);
                     img.src = image.link;
@@ -82,13 +82,11 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
         )
 
         const a = document.createElement('a');
-        const blob = await new Promise(resolve => canvas.toBlob(resolve))
+        const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(blob)));
         a.href = window.URL.createObjectURL(blob);
-        a.download = item.title;
+        a.download = item.id;
         a.click();
-        
-
-    }, [item.title, images]);
+    }, [item.id, images]);
     const canExportImage = useMemo(() => images.filter((image) => !image.animated).length > 1, [images]);
 
     return images.length > 0 ? (
