@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {FunctionComponent, useCallback, useEffect, useState} from 'react';
 import {Box, CircularProgress, Grid, IconButton} from '@material-ui/core';
 import {observer, useObservable} from 'mobx-react-lite';
