@@ -1,6 +1,5 @@
-import * as React from 'react';
 import {FunctionComponent, useCallback, useRef, useMemo} from 'react';
-import {Card as MUICard, CardHeader, Grid, MenuItem} from '@material-ui/core';
+import {Card as MUICard, CardHeader, Grid, MenuItem, Typography} from '@material-ui/core';
 import {Medium} from './Medium';
 import {observer, useObservable} from 'mobx-react-lite';
 import {Fetcher} from '../../store/fetcher';
@@ -9,6 +8,7 @@ import {headers} from '../../services/auth';
 import {useObserver} from '../../services/use-observer';
 import {CommentsLoader} from './CommentsLoader';
 import {ActionMenu} from './ActionMenu';
+import { render } from 'react-dom';
 
 type AlbumResponse = APIResponse<GalleryAlbumResponse>;
 
@@ -60,29 +60,66 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
         canvas.width = Math.max(...stillImages.map((image) => image.width));
         canvas.height = stillImages.reduce((acc, curr) => acc + curr.height, 0);
         const ctx = canvas.getContext('2d');
+        if(!ctx) return;
+
+        const {font, lineHeight} = await (async () => {
+            
+            const root = document.createElement("div");
+            document.body.appendChild(root);
+            await new Promise<any>(resolve => 
+                render(<Typography variant={'body1'}>text</Typography> as any, root, () => resolve(null)));
+
+            const map = root.querySelector<any>("p")!.computedStyleMap();
+            const fontSize = +map.get("font-size")!.toString().replace("px", "");
+            const lineHeight = +map.get("line-height")!.toString().replace("px", "");
+            const style = {
+                font: map.get("font")!.toString(),
+                lineHeight: fontSize * lineHeight,
+            };
+            root.remove();
+            return style;
+        })();
+        ctx.font = font;
 
         await Promise.all(
             stillImages
                 .reduce((acc, curr) => {
-                    if(acc.length === 0) {
-                        return [{y: 0, image: curr}];
+                    let height = curr.height;
+                    let description = [] as string[];
+                    if(curr.description) {
+                        description = curr.description.split(" ").reduce((acc, curr) => {
+                            const withNewWord = `${acc[acc.length - 1]} ${curr}`;
+                            if(ctx.measureText(withNewWord).width > canvas.width) {
+                                return [...acc, curr]
+                            }
+                            return [...acc.slice(0, acc.length - 1), withNewWord];
+                        }, [""]);
+                        height += description.length * lineHeight;
                     }
-                    return [...acc, {y: acc[acc.length - 1].y + acc[acc.length - 1].image.height, image: curr}];
-                }, [] as {y: number, image: any}[])
-                .map(async ({y, image}) => {
+                    let y = 0;
+                    if(acc.length > 0) {
+                        y = acc[acc.length - 1].y + acc[acc.length - 1].height
+                    }
+                    
+                    return [...acc, {height, y, image: curr, description}];
+                }, [] as {height: number, y: number, image: ImageResponse, description: string[]}[])
+                .map(async ({y, image, description}) => {
                     const img = new Image();
                     img.setAttribute('crossorigin', 'anonymous');
                     const promise = new Promise(resolve => img.onload = resolve);
                     img.src = image.link;
                     await promise;
-                    console.log()
-                    if(ctx)
-                        ctx.drawImage(img,0,y);
+                    ctx.drawImage(img,0,y);
+                    if(description.length) {
+                        const leading = ctx.measureText(description[0]).fontBoundingBoxAscent;
+                        for(let i = 0; i < description.length; i++)
+                            ctx.fillText(description[i], 0, y + image.height + leading + i * lineHeight)
+                    }
                 })
         )
 
         const a = document.createElement('a');
-        const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(blob)));
+        const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob(((blob) => blob ? resolve(blob) : reject())));
         a.href = window.URL.createObjectURL(blob);
         a.download = item.id;
         a.click();
