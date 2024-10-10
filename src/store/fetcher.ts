@@ -1,5 +1,5 @@
 import {action, computed, observable} from 'mobx';
-import {AxiosPromise, AxiosResponse} from 'axios';
+import {AxiosError, AxiosPromise, AxiosResponse} from 'axios';
 
 export type Silent = 'silent' | undefined;
 
@@ -29,8 +29,9 @@ export class Fetcher<T extends APIResponse<U>, U extends object = object> {
         try {
             response = await request;
         } catch (e) {
-            error = e;
-            if (e.response && e.response.data)
+            if(e instanceof Error)
+                error = e;
+            if (e instanceof AxiosError && e.response?.data)
                 error = e.response.data;
         }
         if (response !== null && response.data.success)
