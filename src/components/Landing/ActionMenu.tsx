@@ -1,8 +1,8 @@
-import React, {FunctionComponent, useCallback} from 'react';
+import React, {FunctionComponent, PropsWithChildren, useCallback} from 'react';
 import {IconButton, Menu} from '@material-ui/core';
 import {MoreVert} from '@material-ui/icons';
 
-export const ActionMenu: FunctionComponent = ({children}) => {
+export const ActionMenu: FunctionComponent<PropsWithChildren> = ({children}) => {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLButtonElement>(null);
     const menuRef = React.useRef<HTMLElement>(null);

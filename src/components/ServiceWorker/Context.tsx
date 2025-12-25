@@ -1,4 +1,13 @@
-import React, {createContext, FC, useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import React, {
+    createContext,
+    FC,
+    PropsWithChildren,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState
+} from 'react';
 import {register} from '../../serviceWorker';
 
 export type ServiceWorkerContext = {
@@ -8,7 +17,7 @@ export type ServiceWorkerContext = {
 const serviceWorkerContext = createContext<ServiceWorkerContext | null>(null);
 
 /// https://medium.com/@FezVrasta/service-worker-updates-and-error-handling-with-react-1a3730800e6a
-export const ServiceWorkerProvider: FC = ({children}) => {
+export const ServiceWorkerProvider: FC<PropsWithChildren> = ({children}) => {
     const [waitingServiceWorker, setWaitingServiceWorker] = useState<ServiceWorker | null>(null);
     const [isUpdateAvailable, setUpdateAvailable] = useState<boolean>(false);
 
@@ -25,7 +34,7 @@ export const ServiceWorkerProvider: FC = ({children}) => {
         });
     }, []);
 
-    const stateChange = useCallback(event => {
+    const stateChange = useCallback((event: any) => {
         if (event?.target?.state === 'activated') {
             window.location.reload();
         }

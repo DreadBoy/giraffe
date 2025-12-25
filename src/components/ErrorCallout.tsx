@@ -12,7 +12,7 @@ export const ErrorCallout: React.FunctionComponent<Props> = ({error, errorInfo})
         return null;
 
     const issueTitle = encodeURIComponent(error.message);
-    const issueBody = errorInfo ? encodeURIComponent(error.message) + '\n\n' + encodeURIComponent(errorInfo.componentStack) :
+    const issueBody = errorInfo?.componentStack ? encodeURIComponent(error.message) + '\n\n' + encodeURIComponent(errorInfo.componentStack) :
         encodeURIComponent(error.message) + '\n\n' + encodeURIComponent(error.stack?.toString() ?? '');
     const githubIssue = `https://github.com/DreadBoy/giraffe/issues/new?body=${issueBody}&title=${issueTitle}`;
     return (
