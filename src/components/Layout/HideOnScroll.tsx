@@ -1,7 +1,7 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, PropsWithChildren} from 'react';
 import {Slide, useScrollTrigger} from '@material-ui/core';
 
-export const HideOnScroll: FunctionComponent = ({children}) => {
+export const HideOnScroll: FunctionComponent<PropsWithChildren> = ({children}) => {
     const trigger = useScrollTrigger();
 
     return (

@@ -28,7 +28,7 @@ export class Fetcher<T extends APIResponse<U>, U extends object = object> {
         let error: Error | null = null;
         try {
             response = await request;
-        } catch (e) {
+        } catch (e: any) {
             error = e;
             if (e.response && e.response.data)
                 error = e.response.data;

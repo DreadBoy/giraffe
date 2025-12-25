@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FC} from 'react';
+import {FC, PropsWithChildren} from 'react';
 import {AppBar, Toolbar, Typography} from '@material-ui/core';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
 import {HideOnScroll} from './HideOnScroll';
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme =>
     }),
 );
 
-type Props = {
+type Props = PropsWithChildren & {
     heading: string
     actions?: JSX.Element
 };

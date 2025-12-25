@@ -3,11 +3,12 @@ import {ErrorInfo} from 'react';
 import {Favicon} from './Head/Favicon';
 import {ServiceWorkerProvider} from './ServiceWorker/Context';
 import {UpdateNotification} from './ServiceWorker/UpdateNotification';
-import {Landing} from './Landing/Landing';
 import {ThemeProvider} from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal'
 import {createMuiTheme, CssBaseline, Theme} from '@material-ui/core';
 import {ErrorCallout} from './ErrorCallout';
+import {RouterProvider} from '@tanstack/react-router';
+import {router} from '../routes';
 
 interface State {
     error?: Error,
@@ -64,7 +65,7 @@ export class Root extends React.Component<{}, State> {
                         {this.state.error ? (
                             <ErrorCallout error={this.state.error} errorInfo={this.state.info}/>
                         ) : (
-                            <Landing/>
+                            <RouterProvider router={router}/>
                         )}
                     </ServiceWorkerProvider>
                 </ThemeProvider>
