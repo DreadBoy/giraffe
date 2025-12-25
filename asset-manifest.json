@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.js": "/giraffe/static/js/main.e3b48093.js",
+    "main.js": "/giraffe/static/js/main.15d6a0d0.js",
+    "static/js/422.4861a074.chunk.js": "/giraffe/static/js/422.4861a074.chunk.js",
     "service-worker.js": "/giraffe/service-worker.js",
-    "static/media/safari-pinned-tab.svg": "/giraffe/static/media/safari-pinned-tab.c1987e13a6a5f9328e1392355c2d8de1.svg",
-    "static/media/site.webmanifest": "/giraffe/static/media/site.487ba06a06a74f792335.webmanifest",
+    "static/media/safari-pinned-tab.svg": "/giraffe/static/media/safari-pinned-tab.55477ba5a3c649fd3411d01d936d4e4c.svg",
+    "static/media/site.webmanifest": "/giraffe/static/media/site.e4c05f5ae407a195b864.webmanifest",
     "index.html": "/giraffe/index.html",
-    "main.e3b48093.js.map": "/giraffe/static/js/main.e3b48093.js.map"
+    "main.15d6a0d0.js.map": "/giraffe/static/js/main.15d6a0d0.js.map",
+    "422.4861a074.chunk.js.map": "/giraffe/static/js/422.4861a074.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.e3b48093.js"
+    "static/js/main.15d6a0d0.js"
   ]
 }
