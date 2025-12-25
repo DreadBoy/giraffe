@@ -43,7 +43,7 @@ export const PostDetail: FunctionComponent = observer(() => {
                     </Box>
                 ) : fetcher.data ? (
                     <Grid container spacing={1}>
-                        <Card item={fetcher.data.data} key={fetcher.data.data.id}/>
+                        <Card item={fetcher.data.data}/>
                     </Grid>
                 ) : null
             }

@@ -9,6 +9,7 @@ import {headers} from '../../services/auth';
 import {useObserver} from '../../services/use-observer';
 import {CommentsLoader} from './CommentsLoader';
 import {ActionMenu} from './ActionMenu';
+import {useNavigate} from '@tanstack/react-router';
 
 type AlbumResponse = APIResponse<GalleryAlbumResponse>;
 
@@ -17,6 +18,7 @@ type Props = {
 }
 
 export const Card: FunctionComponent<Props> = observer(({item}) => {
+    const navigate = useNavigate();
     const el = useRef<HTMLElement>(null);
     const fetcher = useObservable(new Fetcher<AlbumResponse>());
     const fetchAlbum = useCallback(() => {
@@ -38,6 +40,10 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
     }, [fetcher, item.id, item.images, item.images_count, item.is_album]);
 
     useObserver(el, fetchAlbum);
+
+    const viewAsPost = useCallback(() => {
+        navigate({to: '/post/$id', params: {id: item.id}});
+    }, [navigate, item.id]);
 
     const share = useCallback(() => {
         navigator
@@ -97,6 +103,7 @@ export const Card: FunctionComponent<Props> = observer(({item}) => {
                     subheader={item.description}
                     action={
                         <ActionMenu>
+                            <MenuItem onClick={viewAsPost}>View as post</MenuItem>
                             <MenuItem component={'a'} href={item.link} target={'_blank'}>View on Imgur</MenuItem>
                             {"share" in navigator && <MenuItem onClick={share}>Share</MenuItem>}
                             {canExportImage && <MenuItem onClick={exportImage}>Export as single image</MenuItem>}
